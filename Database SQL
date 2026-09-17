@@ -1,0 +1,52 @@
+-- =====================================================
+-- SDC310L Personal Budget Tracker
+-- Student: Todd Upshaw
+-- Week 2 Database Infrastructure
+-- =====================================================
+
+CREATE DATABASE IF NOT EXISTS todd_budget_tracker;
+
+USE todd_budget_tracker;
+
+-- -----------------------------------------------------
+-- Transactions table
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS transactions (
+    transaction_id INT AUTO_INCREMENT PRIMARY KEY,
+    transaction_type VARCHAR(20) NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    category VARCHAR(100) NOT NULL,
+    transaction_date DATE NOT NULL,
+    description VARCHAR(255)
+);
+
+-- -----------------------------------------------------
+-- Savings Goals table
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS savings_goals (
+    goal_id INT AUTO_INCREMENT PRIMARY KEY,
+    goal_name VARCHAR(100) NOT NULL,
+    target_amount DECIMAL(10,2) NOT NULL,
+    current_amount DECIMAL(10,2) DEFAULT 0.00,
+    target_date DATE
+);
+
+-- -----------------------------------------------------
+-- Sample transaction structure
+-- -----------------------------------------------------
+
+INSERT INTO transactions
+(transaction_type, amount, category, transaction_date, description)
+VALUES
+('Income', 2500.00, 'Salary', '2026-09-01', 'Monthly income');
+
+-- -----------------------------------------------------
+-- Sample savings goal
+-- -----------------------------------------------------
+
+INSERT INTO savings_goals
+(goal_name, target_amount, current_amount, target_date)
+VALUES
+('Emergency Fund', 5000.00, 500.00, '2027-06-01');
