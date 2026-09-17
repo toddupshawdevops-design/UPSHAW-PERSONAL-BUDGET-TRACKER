@@ -1,0 +1,115 @@
+<?php
+// ----------------------------------------------------
+// SDC310L Personal Budget Tracker
+// Student: Todd Upshaw
+// Project Phase: Week 2 - Application Infrastructure
+// ----------------------------------------------------
+
+// Application title.
+$pageTitle = "Todd Upshaw Personal Budget Tracker";
+
+// Display a simple status message.
+$applicationStatus = "Application infrastructure is under construction.";
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title><?php echo $pageTitle; ?></title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #222;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        main {
+            width: 80%;
+            max-width: 900px;
+            margin: 30px auto;
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        .section {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 5px;
+        }
+
+        .status {
+            padding: 15px;
+            background-color: #eeeeee;
+            margin-top: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Personal Budget Tracker</h1>
+    <p>Todd Upshaw</p>
+</header>
+
+<main>
+
+    <h2>Application Infrastructure</h2>
+
+    <p>
+        This application will provide a simple way to track
+        income, expenses, and savings goals.
+    </p>
+
+    <div class="section">
+        <h3>Transactions</h3>
+        <p>Income and expense transaction functionality will be developed here.</p>
+    </div>
+
+    <div class="section">
+        <h3>Categories</h3>
+        <p>Transaction category functionality will be developed here.</p>
+    </div>
+
+    <div class="section">
+        <h3>Savings Goals</h3>
+        <p>Savings goal functionality will be developed here.</p>
+    </div>
+
+    <div class="status">
+        <strong>Status:</strong>
+        <?php echo $applicationStatus; ?>
+    </div>
+
+</main>
+
+<footer>
+    <p>SDC310L - PHP Web Application</p>
+</footer>
+
+</body>
+</html>
