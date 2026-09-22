@@ -1,47 +1,49 @@
-# Todd Upshaw - Personal Budget Tracker
+# Personal Budget Tracking System
 
-## SDC310L PHP Web Application
+## Student
+Todd Upshaw
 
-This project is a Personal Budget Tracker developed using PHP for the SDC310L course.
+## Course
+ECPI University - SDC310
+
+## Project
+Personal Budget Tracking System
+
+## Project Phase
+Week 3 - Database CRUD Implementation
+
+---
 
 ## Project Description
 
-The Personal Budget Tracker will allow users to manage personal financial information including income, expenses, transaction categories, and savings goals.
+The Personal Budget Tracking System is a PHP web application that allows users to manage personal income, expenses, transactions, and savings goals.
 
-## Week 2 - Application Infrastructure
+The application connects to a MySQL database and provides Create, Read, Update, and Delete (CRUD) functionality.
 
-The Week 2 phase establishes the basic infrastructure for the application.
+The Week 3 version is built using one PHP file.
 
-The infrastructure includes:
+---
 
-- PHP application framework
-- Application homepage
-- Database
-- Transactions table
-- Savings goals table
-- Project file structure
-
-## Technologies
+## Technologies Used
 
 - PHP
+- MySQL
 - HTML
 - CSS
-- MySQL
-- phpMyAdmin
+- XAMPP
 - Apache
+- phpMyAdmin
 - Visual Studio Code
-- VCASTLE
+- GitHub
+
+---
 
 ## Project Structure
 
+The Week 3 application uses a simple one-file structure:
+
 ```text
-Upshaw_wk2pa/
-│
-├── .vscode/
-│   └── launch.json
+sdc310_midterm/
 │
 ├── index.php
-│
-├── database.sql
-│
 └── README.md
