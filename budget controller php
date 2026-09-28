@@ -1,0 +1,41 @@
+<?php
+require_once __DIR__ . "/../config/database.php";
+require_once __DIR__ . "/../models/Transaction.php";
+require_once __DIR__ . "/../models/SavingsGoal.php";
+
+class BudgetController {
+    private mysqli $db;
+    private Transaction $transactions;
+    private SavingsGoal $goals;
+
+    public function __construct() {
+        $this->db=(new Database())->connect();
+        $this->transactions=new Transaction($this->db);
+        $this->goals=new SavingsGoal($this->db);
+    }
+
+    public function handleRequest(): array {
+        $message=""; $error=""; $edit=null;
+        try {
+            if($_SERVER["REQUEST_METHOD"]==="POST") {
+                $a=$_POST["action"]??"";
+                if($a==="create_transaction") {
+                    $this->transactions->create($_POST["transaction_type"],(float)$_POST["amount"],trim($_POST["category"]),$_POST["transaction_date"],trim($_POST["description"]));
+                    $message="Transaction created successfully.";
+                } elseif($a==="update_transaction") {
+                    $this->transactions->update((int)$_POST["transaction_id"],$_POST["transaction_type"],(float)$_POST["amount"],trim($_POST["category"]),$_POST["transaction_date"],trim($_POST["description"]));
+                    $message="Transaction updated successfully.";
+                } elseif($a==="delete_transaction") {
+                    $this->transactions->delete((int)$_POST["transaction_id"]); $message="Transaction deleted successfully.";
+                } elseif($a==="create_goal") {
+                    $this->goals->create(trim($_POST["goal_name"]),(float)$_POST["target_amount"],(float)$_POST["current_amount"],$_POST["target_date"]);
+                    $message="Savings goal created successfully.";
+                } elseif($a==="delete_goal") {
+                    $this->goals->delete((int)$_POST["goal_id"]); $message="Savings goal deleted successfully.";
+                }
+            }
+        } catch(Throwable $e) { $error=$e->getMessage(); }
+        if(isset($_GET["edit"])) $edit=$this->transactions->find((int)$_GET["edit"]);
+        return ["transactions"=>$this->transactions->all(),"goals"=>$this->goals->all(),"summary"=>$this->transactions->summary(),"editTransaction"=>$edit,"message"=>$message,"error"=>$error];
+    }
+}
