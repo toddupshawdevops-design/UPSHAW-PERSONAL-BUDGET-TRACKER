@@ -1,52 +1,12 @@
--- =====================================================
--- SDC310L Personal Budget Tracker
--- Student: Todd Upshaw
--- Week 2 Database Infrastructure
--- =====================================================
-
-CREATE DATABASE IF NOT EXISTS todd_budget_tracker;
-
+CREATE DATABASE IF NOT EXISTS todd_budget_tracker DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE todd_budget_tracker;
-
--- -----------------------------------------------------
--- Transactions table
--- -----------------------------------------------------
-
 CREATE TABLE IF NOT EXISTS transactions (
-    transaction_id INT AUTO_INCREMENT PRIMARY KEY,
-    transaction_type VARCHAR(20) NOT NULL,
-    amount DECIMAL(10,2) NOT NULL,
-    category VARCHAR(100) NOT NULL,
-    transaction_date DATE NOT NULL,
-    description VARCHAR(255)
-);
-
--- -----------------------------------------------------
--- Savings Goals table
--- -----------------------------------------------------
-
+ transaction_id INT NOT NULL AUTO_INCREMENT, transaction_type VARCHAR(20) NOT NULL,
+ amount DECIMAL(10,2) NOT NULL, category VARCHAR(100) NOT NULL,
+ transaction_date DATE NOT NULL, description VARCHAR(255), PRIMARY KEY(transaction_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 CREATE TABLE IF NOT EXISTS savings_goals (
-    goal_id INT AUTO_INCREMENT PRIMARY KEY,
-    goal_name VARCHAR(100) NOT NULL,
-    target_amount DECIMAL(10,2) NOT NULL,
-    current_amount DECIMAL(10,2) DEFAULT 0.00,
-    target_date DATE
-);
-
--- -----------------------------------------------------
--- Sample transaction structure
--- -----------------------------------------------------
-
-INSERT INTO transactions
-(transaction_type, amount, category, transaction_date, description)
-VALUES
-('Income', 2500.00, 'Salary', '2026-09-01', 'Monthly income');
-
--- -----------------------------------------------------
--- Sample savings goal
--- -----------------------------------------------------
-
-INSERT INTO savings_goals
-(goal_name, target_amount, current_amount, target_date)
-VALUES
-('Emergency Fund', 5000.00, 500.00, '2027-06-01');
+ goal_id INT NOT NULL AUTO_INCREMENT, goal_name VARCHAR(100) NOT NULL,
+ target_amount DECIMAL(10,2) NOT NULL, current_amount DECIMAL(10,2) NOT NULL DEFAULT 0,
+ target_date DATE NOT NULL, PRIMARY KEY(goal_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
