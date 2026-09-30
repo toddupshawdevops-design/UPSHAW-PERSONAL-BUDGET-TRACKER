@@ -1,0 +1,57 @@
+<?php
+class BudgetModel {
+    private $host = "localhost";
+    private $db_name = "sdc310_wk5pa";
+    private $username = "ecpi_user";
+    private $password = "Password1";
+    private $conn;
+
+    public function getConnection() {
+        $this->conn = null;
+        try {
+            $this->conn = new PDO(
+                "mysql:host=" . $this->host . ";dbname=" . $this->db_name,
+                $this->username,
+                $this->password
+            );
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            echo "Connection Error: " . $e->getMessage();
+        }
+        return $this->conn;
+    }
+
+    public function getAllTransactions() {
+        $db = $this->getConnection();
+        if (!$db) return [];
+        
+        $stmt = $db->prepare("SELECT * FROM transactions ORDER BY transaction_date DESC");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function addTransaction($type, $category, $amount, $description, $date) {
+        $db = $this->getConnection();
+        if (!$db) return false;
+
+        $query = "INSERT INTO transactions (type, category, amount, description, transaction_date) 
+                  VALUES (:type, :category, :amount, :description, :date)";
+        $stmt = $db->prepare($query);
+        return $stmt->execute([
+            ':type' => $type,
+            ':category' => $category,
+            ':amount' => $amount,
+            ':description' => $description,
+            ':date' => $date
+        ]);
+    }
+
+    public function deleteTransaction($id) {
+        $db = $this->getConnection();
+        if (!$db) return false;
+
+        $stmt = $db->prepare("DELETE FROM transactions WHERE id = :id");
+        return $stmt->execute([':id' => $id]);
+    }
+}
+?>
