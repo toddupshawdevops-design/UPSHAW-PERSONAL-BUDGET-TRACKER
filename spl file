@@ -1,0 +1,28 @@
+-- Create Database
+CREATE DATABASE IF NOT EXISTS sdc310_wk5pa DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE sdc310_wk5pa;
+
+-- Create User & Grant Privileges
+CREATE USER IF NOT EXISTS 'ecpi_user'@'localhost' IDENTIFIED BY 'Password1';
+GRANT ALL PRIVILEGES ON sdc310_wk5pa.* TO 'ecpi_user'@'localhost';
+FLUSH PRIVILEGES;
+
+-- Create Transactions Table
+DROP TABLE IF EXISTS transactions;
+CREATE TABLE transactions (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    type ENUM('Income', 'Expense') NOT NULL,
+    category VARCHAR(50) NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    description VARCHAR(255) DEFAULT NULL,
+    transaction_date DATE NOT NULL,
+    PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Seed Sample Records
+INSERT INTO transactions (type, category, amount, description, transaction_date) VALUES
+('Income', 'Salary', 2500.00, 'Bi-weekly paycheck', '2026-09-01'),
+('Expense', 'Groceries', 142.50, 'Supermarket trip', '2026-09-03'),
+('Expense', 'Utilities', 85.00, 'Electric bill', '2026-09-05'),
+('Expense', 'Entertainment', 45.00, 'Movie & Snacks', '2026-09-10'),
+('Income', 'Freelance', 350.00, 'Web design project', '2026-09-15');
