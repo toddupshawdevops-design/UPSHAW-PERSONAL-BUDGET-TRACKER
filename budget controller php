@@ -1,0 +1,35 @@
+<?php
+require_once __DIR__ . '/../model/budget_model.php';
+
+class BudgetController {
+    private $model;
+
+    public function __construct() {
+        $this->model = new BudgetModel();
+    }
+
+    public function handleRequest() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['action']) && $_POST['action'] === 'add') {
+                $type = trim($_POST['type'] ?? '');
+                $category = trim($_POST['category'] ?? '');
+                $amount = floatval($_POST['amount'] ?? 0);
+                $description = trim($_POST['description'] ?? '');
+                $date = $_POST['transaction_date'] ?? date('Y-m-d');
+
+                if (!empty($type) && !empty($category) && $amount > 0) {
+                    $this->model->addTransaction($type, $category, $amount, $description, $date);
+                }
+            }
+        } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['id'])) {
+                $id = intval($_GET['id']);
+                $this->model->deleteTransaction($id);
+            }
+        }
+
+        $transactions = $this->model->getAllTransactions();
+        require_once __DIR__ . '/../view/dashboard.php';
+    }
+}
+?>
